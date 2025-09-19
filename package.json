@@ -1,0 +1,79 @@
+{
+  "name": "@yotoplay/yoto-sdk",
+  "version": "0.0.0-development",
+  "type": "module",
+  "description": "Official TypeScript SDK for Yoto's public API",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:run": "vitest run",
+    "lint": "eslint src tests",
+    "lint:fix": "eslint src tests --fix",
+    "type-check": "tsc --noEmit",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build && npm run test:run && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yotoplay/yoto-sdk.git"
+  },
+  "keywords": [
+    "yoto",
+    "sdk",
+    "typescript",
+    "api",
+    "audio",
+    "children",
+    "entertainment"
+  ],
+  "author": "Yoto",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "axios-retry": "^3.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "eslint": "^8.57.0",
+    "semantic-release": "^22.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "branches": [
+      "main"
+    ],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ]
+  }
+}
