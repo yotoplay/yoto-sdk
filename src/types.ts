@@ -123,6 +123,8 @@ export interface YotoSdkConfig {
   authDomain?: string;
   audience?: string;
   jwt?: string; // JWT token for server-side usage (bypasses browser auth flow)
+  apiDomain?: string; // Override the main API domain (defaults to https://api.yotoplay.com)
+  labsApiDomain?: string; // Override the labs API domain (defaults to https://labs.api.yotoplay.com)
 }
 
 export interface ApiResponse<T = unknown> {

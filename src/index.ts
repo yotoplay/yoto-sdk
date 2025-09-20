@@ -1,6 +1,5 @@
 export { YotoSdk } from './main/YotoSdk.js';
 export { YotoSdkError } from './base/YotoBaseSdk.js';
-export { default as stages } from './utils/stages.js';
 
 export type {
   YotoSdkConfig,

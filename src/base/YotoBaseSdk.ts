@@ -1,6 +1,5 @@
 import axios, { type AxiosInstance } from 'axios';
 import axiosRetry from 'axios-retry';
-import stages from '../utils/stages.js';
 import type { YotoSdkConfig } from '../types.js';
 
 export class YotoSdkError extends Error {
@@ -21,7 +20,7 @@ export abstract class YotoBaseSdk {
 
   constructor(config: YotoSdkConfig = {}) {
     this.config = {
-      stage: config.stage || this.detectStage(),
+      stage: config.stage || 'prod',
       retries: config.retries ?? 5,
       retryDelay: config.retryDelay || axiosRetry.exponentialDelay,
       timeout: config.timeout ?? 30000,
@@ -29,22 +28,15 @@ export abstract class YotoBaseSdk {
       authDomain: config.authDomain,
       audience: config.audience,
       jwt: config.jwt,
+      apiDomain: config.apiDomain,
+      labsApiDomain: config.labsApiDomain,
     };
 
     this.mainApiClient = this.createClient(this.getMainApiUrl());
   }
 
-  protected detectStage(): 'test' | 'prod' {
-    if (typeof window === 'undefined') return 'prod';
-    
-    const hostname = window.location.hostname;
-    const stage = stages.CLIENT_URLS[hostname as keyof typeof stages.CLIENT_URLS];
-    return stage === 'test' ? 'test' : 'prod';
-  }
-
   protected getMainApiUrl(): string {
-    const stage = this.config.stage || this.detectStage();
-    return stages.API_DOMAINS[stage];
+    return this.config.apiDomain || 'https://api.yotoplay.com';
   }
 
   protected createClient(baseURL: string): AxiosInstance {
@@ -124,9 +116,8 @@ export abstract class YotoBaseSdk {
       return this.config.audience;
     }
     
-    // Fallback to stage-based audience
-    const stage = this.config.stage || this.detectStage();
-    return stages.API_DOMAINS[stage];
+    // Fallback to configured API domain
+    return this.config.apiDomain || 'https://api.yotoplay.com';
   }
 
   public getAccessToken(): string | null {
