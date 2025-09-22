@@ -16,7 +16,7 @@ npm install @yotoplay/yoto-sdk
 import { yotoSdk, createYotoSdk } from '@yotoplay/yoto-sdk';
 
 // Option 1: Use default instance (stage-based configuration)
-const devices = await yotoSdk.getDevices();
+const devices = await yotoSdk.devices.getMyDevices();
 
 // Option 2: Create custom configured instance
 const customSdk = createYotoSdk({
@@ -37,23 +37,32 @@ const sdk = createYotoSdk({
 });
 
 // No need to call login() - JWT is already provided
-const devices = await sdk.getMyDevices();
-const cards = await sdk.getMyCards();
+const devices = await sdk.devices.getMyDevices();
+const cards = await sdk.content.getMyCards();
 ```
 
 ### Main SDK Usage
 
+The SDK is organized into logical namespaces that mirror the [Yoto API structure](https://yoto.dev/api/):
+
 ```typescript
 import { yotoSdk } from '@yotoplay/yoto-sdk';
 
-// Get user's devices
-const devices = await yotoSdk.getMyDevices();
+// Content API - manage cards and content
+const cards = await yotoSdk.content.getMyCards();
+const card = await yotoSdk.content.getCard('card-id');
+const updatedCard = await yotoSdk.content.updateCard(cardData);
 
-// Get user's cards
-const cards = await yotoSdk.getMyCards();
+// Devices API - manage Yoto devices
+const devices = await yotoSdk.devices.getMyDevices();
 
-// Get signed media URL with caching
-const mediaUrl = await yotoSdk.getMediaUrl(cardId, mediaId);
+// Media API - handle media uploads and URLs
+const uploadUrl = await yotoSdk.media.getUploadUrlForTranscode(sha256, filename);
+await yotoSdk.media.uploadFile(uploadUrl.url, audioBuffer);
+const mediaUrl = await yotoSdk.media.getMediaUrl(cardId, mediaId);
+
+// Icons API - manage display icons
+const icons = await yotoSdk.icons.getDisplayIcons();
 ```
 
 ## Error Handling
@@ -64,7 +73,7 @@ The SDK provides custom error types for better error handling:
 import { YotoSdkError } from '@yotoplay/yoto-sdk';
 
 try {
-  await yotoSdk.getMyDevices();
+  await yotoSdk.devices.getMyDevices();
 } catch (error) {
   if (error instanceof YotoSdkError) {
     console.error('SDK Error:', error.message);
@@ -97,13 +106,13 @@ async function uploadAndProcessMedia() {
   const filename = 'audio.mp3';
 
   // Get upload URL
-  const uploadUrl = await yotoSdk.getUploadUrlForTranscode(sha256, filename);
+  const uploadUrl = await yotoSdk.media.getUploadUrlForTranscode(sha256, filename);
   
   // Upload file
-  await yotoSdk.uploadFile(uploadUrl.url, audioBuffer);
+  await yotoSdk.media.uploadFile(uploadUrl.url, audioBuffer);
   
   // Get transcoded result
-  const transcoded = await yotoSdk.getTranscodedUpload(uploadUrl.uploadId, true);
+  const transcoded = await yotoSdk.media.getTranscodedUpload(uploadUrl.uploadId, true);
   
   console.log('Transcoded URL:', transcoded.url);
 }
