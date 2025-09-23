@@ -15,7 +15,7 @@ npm install @yotoplay/yoto-sdk
 ```typescript
 import { yotoSdk, createYotoSdk } from '@yotoplay/yoto-sdk';
 
-// Option 1: Use default instance (stage-based configuration)
+// Option 1: Use default instance
 const devices = await yotoSdk.devices.getMyDevices();
 
 // Option 2: Create custom configured instance
