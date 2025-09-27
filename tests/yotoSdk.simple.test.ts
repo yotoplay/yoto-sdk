@@ -80,6 +80,12 @@ describe('YotoSdk getCard method', () => {
     (sdk as any).mainApiClient = {
       get: mockGet
     };
+    
+    // Also mock the content API's get method
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (sdk.content as any).apiClient = {
+      get: mockGet
+    };
   });
 
   it('should get a card by ID', async () => {
@@ -103,7 +109,7 @@ describe('YotoSdk getCard method', () => {
       data: { card: mockCard }
     });
 
-    const result = await sdk.getCard('test-card-123');
+    const result = await sdk.content.getCard('test-card-123');
 
     expect(mockGet).toHaveBeenCalledWith('/content/test-card-123');
     expect(result).toEqual(mockCard);
@@ -113,7 +119,7 @@ describe('YotoSdk getCard method', () => {
     const mockError = new YotoSdkError('Card not found', 404);
     mockGet.mockRejectedValue(mockError);
 
-    await expect(sdk.getCard('nonexistent-card')).rejects.toThrow('Card not found');
+    await expect(sdk.content.getCard('nonexistent-card')).rejects.toThrow('Card not found');
     expect(mockGet).toHaveBeenCalledWith('/content/nonexistent-card');
   });
 });
