@@ -63,7 +63,7 @@ describe('YotoSdk utility methods', () => {
 
 });
 
-describe('YotoSdk content.getCard method', () => {
+describe('YotoSdk getCard method', () => {
   let sdk: YotoSdk;
   const mockGet = vi.fn();
 
@@ -80,10 +80,6 @@ describe('YotoSdk content.getCard method', () => {
     (sdk as any).mainApiClient = {
       get: mockGet
     };
-    
-    // Also need to update the content API's client reference
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (sdk.content as any).apiClient = (sdk as any).mainApiClient;
   });
 
   it('should get a card by ID', async () => {
@@ -107,7 +103,7 @@ describe('YotoSdk content.getCard method', () => {
       data: { card: mockCard }
     });
 
-    const result = await sdk.content.getCard('test-card-123');
+    const result = await sdk.getCard('test-card-123');
 
     expect(mockGet).toHaveBeenCalledWith('/content/test-card-123');
     expect(result).toEqual(mockCard);
@@ -117,49 +113,8 @@ describe('YotoSdk content.getCard method', () => {
     const mockError = new YotoSdkError('Card not found', 404);
     mockGet.mockRejectedValue(mockError);
 
-    await expect(sdk.content.getCard('nonexistent-card')).rejects.toThrow('Card not found');
+    await expect(sdk.getCard('nonexistent-card')).rejects.toThrow('Card not found');
     expect(mockGet).toHaveBeenCalledWith('/content/nonexistent-card');
-  });
-});
-
-describe('YotoSdk namespaced API structure', () => {
-  let sdk: YotoSdk;
-
-  beforeEach(() => {
-    sdk = new YotoSdk({
-      jwt: 'mock-jwt-token',
-      stage: 'test'
-    });
-  });
-
-  it('should have content namespace', () => {
-    expect(sdk.content).toBeDefined();
-    expect(typeof sdk.content.getMyCards).toBe('function');
-    expect(typeof sdk.content.getCard).toBe('function');
-    expect(typeof sdk.content.updateCard).toBe('function');
-  });
-
-  it('should have devices namespace', () => {
-    expect(sdk.devices).toBeDefined();
-    expect(typeof sdk.devices.getMyDevices).toBe('function');
-  });
-
-  it('should have media namespace', () => {
-    expect(sdk.media).toBeDefined();
-    expect(typeof sdk.media.getUploadUrlForTranscode).toBe('function');
-    expect(typeof sdk.media.uploadFile).toBe('function');
-    expect(typeof sdk.media.getTranscodedUpload).toBe('function');
-    expect(typeof sdk.media.getMediaUrl).toBe('function');
-    expect(typeof sdk.media.clearMediaCache).toBe('function');
-  });
-
-  it('should have icons namespace', () => {
-    expect(sdk.icons).toBeDefined();
-    expect(typeof sdk.icons.getDisplayIcons).toBe('function');
-  });
-
-  it('should maintain backward compatibility with clearMediaCache', () => {
-    expect(typeof sdk.clearMediaCache).toBe('function');
   });
 });
 
