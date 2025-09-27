@@ -1,7 +1,9 @@
-name: Release
+name: CI and Release
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -35,6 +37,7 @@ jobs:
       - run: pnpm lint
       - run: pnpm type-check
       - run: pnpm run release
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
