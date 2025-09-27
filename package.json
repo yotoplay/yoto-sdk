@@ -34,8 +34,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/yotoplay/yoto-elevenlabs-demo.git",
-    "directory": "packages/yoto-sdk"
+    "url": "https://github.com/yotoplay/yoto-sdk.git"
   },
   "keywords": [
     "yoto",
