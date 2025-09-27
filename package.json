@@ -27,7 +27,10 @@
     "lint:fix": "eslint src tests --fix",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf dist",
-    "prepublishOnly": "npm run clean && npm run build && npm run test:run && npm run lint"
+    "prepublishOnly": "npm run clean && npm run build && npm run test:run && npm run lint",
+    "release": "semantic-release",
+    "release:dry-run": "semantic-release --dry-run",
+    "release:check": "semantic-release --dry-run --no-ci"
   },
   "repository": {
     "type": "git",
