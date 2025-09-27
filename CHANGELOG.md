@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/yotoplay/yoto-sdk/compare/v1.0.0...v1.1.0) (2025-09-27)
+
+
+### Features
+
+* update license for initial release ([8bdf608](https://github.com/yotoplay/yoto-sdk/commit/8bdf60839cadac395df607bf2e57af96e5fd7a31))
+
 # 1.0.0 (2025-09-27)
 
 
