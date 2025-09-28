@@ -1,6 +1,6 @@
 {
   "name": "@yotoplay/yoto-sdk",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "type": "module",
   "description": "Official TypeScript SDK for Yoto's public API",
   "main": "dist/index.js",

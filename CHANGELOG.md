@@ -1,3 +1,12 @@
+# [1.2.0](https://github.com/yotoplay/yoto-sdk/compare/v1.1.0...v1.2.0) (2025-09-28)
+
+
+### Features
+
+* adds rest of api calls apart from uploadAFamilyImage ([557ee18](https://github.com/yotoplay/yoto-sdk/commit/557ee183d0843f730e63c9c1b5086911723adc34))
+* adds the rest of the api functions based on the yoto.dev/api documentation ([a0d9095](https://github.com/yotoplay/yoto-sdk/commit/a0d9095319d6ceecdc13941c2b181db7211ba1f1))
+* adds the rest of the api functions based on the yoto.dev/api documentation ([e49ded6](https://github.com/yotoplay/yoto-sdk/commit/e49ded684de91fcdcb7f7c5cd37afa20e3d45e10))
+
 # [1.1.0](https://github.com/yotoplay/yoto-sdk/compare/v1.0.0...v1.1.0) (2025-09-27)
 
 
