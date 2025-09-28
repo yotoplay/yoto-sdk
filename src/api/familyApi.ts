@@ -1,5 +1,3 @@
-import FormData from 'form-data';
-import Blob from 'form-data';
 import type { AxiosInstance } from 'axios';
 import type { FamilyImage, FamilyImagesResponse } from '../types.js';
 
@@ -16,19 +14,26 @@ export class FamilyApi {
     return response.data.familyImages;
   }
 
-  async uploadFamilyImage(imageData: Buffer, title: string, publicImage = false, publicTags: string[] = []): Promise<FamilyImage> {
-    const blob = new Blob().append('image', new Uint8Array(imageData));
+  async uploadFamilyImage(
+    imageData: Buffer,
+    title: string,
+    publicImage = false,
+    publicTags: string[] = []
+  ): Promise<FamilyImage> {
+    const blob = new Blob([imageData], { type: 'image/jpeg' });
     const formData = new FormData();
     formData.append('image', blob, 'family-image.jpg');
     formData.append('title', title);
     formData.append('public', publicImage.toString());
     formData.append('publicTags', JSON.stringify(publicTags));
 
-    const response = await this.apiClient.post<{ familyImage: FamilyImage }>('/media/family/images', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    });
+    const response = await this.apiClient.post<{ familyImage: FamilyImage }>(
+      '/media/family/images',
+      formData,
+      {
+        headers: formData.getHeaders?.() ?? {}, // only needed if using node-fetch/axios quirks
+      }
+    );
     return response.data.familyImage;
   }
 }

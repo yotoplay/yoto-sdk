@@ -21,6 +21,8 @@ export default [
                 sessionStorage: 'readonly',
                 localStorage: 'readonly',
                 URLSearchParams: 'readonly',
+                Blob: 'readonly',
+                FormData: 'readonly'
             },
         },
         plugins: {
