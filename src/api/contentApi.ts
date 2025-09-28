@@ -20,4 +20,8 @@ export class ContentApi {
     });
     return response.data.card;
   }
+
+  async deleteCard(cardId: string): Promise<void> {
+    await this.apiClient.delete(`/content/${cardId}`);
+  }
 }

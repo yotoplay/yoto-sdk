@@ -1,6 +1,6 @@
 # @yotoplay/yoto-sdk
 
-The main TypeScript SDK for Yoto's public API.
+A TypeScript SDK for Yoto's public API.
 
 ## Installation
 
@@ -20,7 +20,7 @@ const devices = await yotoSdk.devices.getMyDevices();
 
 // Option 2: Create custom configured instance
 const customSdk = createYotoSdk({
-  clientId: 'your-client-id'
+  clientId: 'your-client-id' // Obtain from https://dashboard.yoto.dev/
 });
 ```
 
@@ -63,6 +63,19 @@ const mediaUrl = await yotoSdk.media.getMediaUrl(cardId, mediaId);
 
 // Icons API - manage display icons
 const icons = await yotoSdk.icons.getDisplayIcons();
+
+// Family API - manage family images
+const familyImages = await yotoSdk.family.getFamilyImages();
+const familyImage = await yotoSdk.family.getFamilyImage('image-id');
+await yotoSdk.family.uploadFamilyImage(imageBuffer, 'My Family Photo', true, ['family', 'photo']);
+
+// Family Library Groups API - manage card groups
+const groups = await yotoSdk.familyLibraryGroups.getGroups();
+const group = await yotoSdk.familyLibraryGroups.createGroup({
+  title: 'Bedtime Stories',
+  description: 'Our favorite bedtime stories',
+  cards: ['card1', 'card2', 'card3']
+});
 ```
 
 ## Error Handling
@@ -117,6 +130,75 @@ async function uploadAndProcessMedia() {
   console.log('Transcoded URL:', transcoded.url);
 }
 ```
+
+### Family Management
+
+```typescript
+import { yotoSdk } from '@yotoplay/yoto-sdk';
+import fs from 'fs';
+
+async function manageFamilyContent() {
+  // Get all family images
+  const familyImages = await yotoSdk.family.getFamilyImages();
+  console.log('Family images:', familyImages);
+  
+  // Upload a new family image
+  const imageBuffer = fs.readFileSync('family-photo.jpg');
+  const newImage = await yotoSdk.family.uploadFamilyImage(
+    imageBuffer, 
+    'Our Family Photo', 
+    true, // public
+    ['family', 'photo', 'memories']
+  );
+  
+  console.log('Uploaded image:', newImage.imageId);
+  
+  // Get a specific family image
+  const image = await yotoSdk.family.getFamilyImage(newImage.imageId);
+  console.log('Image details:', image);
+}
+```
+
+### Family Library Groups
+
+```typescript
+import { yotoSdk } from '@yotoplay/yoto-sdk';
+
+async function manageFamilyLibraryGroups() {
+  // Get all groups
+  const groups = await yotoSdk.familyLibraryGroups.getGroups();
+  console.log('Existing groups:', groups);
+  
+  // Create a new group
+  const newGroup = await yotoSdk.familyLibraryGroups.createGroup({
+    title: 'Bedtime Stories',
+    description: 'Our favorite bedtime stories collection',
+    public: true,
+    publicTags: ['bedtime', 'stories', 'kids'],
+    cards: ['card1', 'card2', 'card3']
+  });
+  
+  console.log('Created group:', newGroup.groupId);
+  
+  // Get group details
+  const group = await yotoSdk.familyLibraryGroups.getGroup(newGroup.groupId);
+  console.log('Group details:', group);
+  
+  // Update the group
+  const updatedGroup = await yotoSdk.familyLibraryGroups.updateGroup(newGroup.groupId, {
+    title: 'Updated Bedtime Stories',
+    description: 'Updated description',
+    cards: ['card1', 'card2', 'card3', 'card4'] // Add more cards
+  });
+  
+  console.log('Updated group:', updatedGroup);
+  
+  // Delete the group
+  await yotoSdk.familyLibraryGroups.deleteGroup(newGroup.groupId);
+  console.log('Group deleted');
+}
+```
+
 
 ## License
 

@@ -19,6 +19,7 @@ build/
 # IDE
 .vscode/
 .idea/
+.ignore/
 *.swp
 *.swo
 

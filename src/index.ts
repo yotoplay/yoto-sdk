@@ -15,6 +15,13 @@ export type {
   TranscodeResponse,
   DisplayIcon,
   DisplayIconsResponse,
+  FamilyImage,
+  FamilyImagesResponse,
+  FamilyLibraryGroup,
+  FamilyLibraryGroupsResponse,
+  FamilyLibraryGroupResponse,
+  CreateFamilyLibraryGroupRequest,
+  UpdateFamilyLibraryGroupRequest,
 } from './types.js';
 
 import { YotoSdk } from './main/YotoSdk.js';

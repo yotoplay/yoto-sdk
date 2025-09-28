@@ -156,3 +156,55 @@ export interface DisplayIconsResponse {
   displayIcons: DisplayIcon[];
 }
 
+// Family types
+export interface FamilyImage {
+  imageId: string;
+  userId: string;
+  createdAt: string;
+  title: string;
+  url: string;
+  public: boolean;
+  publicTags: string[];
+}
+
+export interface FamilyImagesResponse {
+  familyImages: FamilyImage[];
+}
+
+// Family Library Groups types
+export interface FamilyLibraryGroup {
+  groupId: string;
+  userId: string;
+  createdAt: string;
+  updatedAt: string;
+  title: string;
+  description?: string;
+  public: boolean;
+  publicTags: string[];
+  cards: string[]; // Array of card IDs
+}
+
+export interface FamilyLibraryGroupsResponse {
+  groups: FamilyLibraryGroup[];
+}
+
+export interface FamilyLibraryGroupResponse {
+  group: FamilyLibraryGroup;
+}
+
+export interface CreateFamilyLibraryGroupRequest {
+  title: string;
+  description?: string;
+  public?: boolean;
+  publicTags?: string[];
+  cards?: string[];
+}
+
+export interface UpdateFamilyLibraryGroupRequest {
+  title?: string;
+  description?: string;
+  public?: boolean;
+  publicTags?: string[];
+  cards?: string[];
+}
+
