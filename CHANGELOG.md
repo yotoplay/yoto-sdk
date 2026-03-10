@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/yotoplay/yoto-sdk/compare/v1.2.0...v1.2.1) (2026-03-10)
+
+
+### Bug Fixes
+
+* correct GitHub Actions commit SHAs ([91f1c18](https://github.com/yotoplay/yoto-sdk/commit/91f1c18efd88ace16e930e0d07f01fd5e323afdc))
+
 # [1.2.0](https://github.com/yotoplay/yoto-sdk/compare/v1.1.0...v1.2.0) (2025-09-28)
 
 
