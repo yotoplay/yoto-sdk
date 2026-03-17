@@ -46,8 +46,8 @@ export interface MediaResponse {
 
 export interface UploadUrlResponse {
   upload: {
-    url: string;
-    fields?: Record<string, string>;
+    uploadUrl: string;
+    uploadId: string;
   };
 }
 
