@@ -1,3 +1,12 @@
+## [1.2.3](https://github.com/yotoplay/yoto-sdk/compare/v1.2.2...v1.2.3) (2026-03-18)
+
+
+### Bug Fixes
+
+* add debug output to npm OIDC token exchange ([dbaf747](https://github.com/yotoplay/yoto-sdk/commit/dbaf747eb71a1da7cdf1cf1de344bbfce32c2fb3))
+* replace NPM_TOKEN secret with OIDC trusted publishing ([a84f419](https://github.com/yotoplay/yoto-sdk/commit/a84f4191a6b28118f86ad8d4c91ec2a1f6ed97e0))
+* use npm trusted publishing via OIDC for tokenless publishing ([db9cedc](https://github.com/yotoplay/yoto-sdk/commit/db9cedcecad05ed8a4a89637868e5c302a771464))
+
 ## [1.2.2](https://github.com/yotoplay/yoto-sdk/compare/v1.2.1...v1.2.2) (2026-03-18)
 
 
