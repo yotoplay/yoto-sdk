@@ -1,4 +1,4 @@
-import type { AxiosInstance } from 'axios';
+import axios, { type AxiosInstance } from 'axios';
 import type { MediaResponse, UploadUrlResponse, TranscodeResponse } from '../types.js';
 
 interface CacheEntry {
@@ -20,9 +20,8 @@ export class MediaApi {
   }
 
   async uploadFile(url: string, fileContent: Buffer): Promise<void> {
-    await this.apiClient.put(url, fileContent, {
+    await axios.put(url, fileContent, {
       headers: { 'Content-Type': 'audio/mpeg' },
-      baseURL: '', // Override baseURL for direct upload URLs
     });
   }
 
