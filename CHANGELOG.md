@@ -1,3 +1,10 @@
+## [1.2.4](https://github.com/yotoplay/yoto-sdk/compare/v1.2.3...v1.2.4) (2026-03-18)
+
+
+### Bug Fixes
+
+* skip npm publish if version already exists on registry ([8f19da3](https://github.com/yotoplay/yoto-sdk/commit/8f19da313e133959cdf847ebf8843475f51701cf))
+
 ## [1.2.3](https://github.com/yotoplay/yoto-sdk/compare/v1.2.2...v1.2.3) (2026-03-18)
 
 
