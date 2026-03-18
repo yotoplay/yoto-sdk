@@ -1,3 +1,10 @@
+## [1.2.2](https://github.com/yotoplay/yoto-sdk/compare/v1.2.1...v1.2.2) (2026-03-18)
+
+
+### Bug Fixes
+
+* strip auth header from S3 uploads and correct UploadUrlResponse types ([0185e06](https://github.com/yotoplay/yoto-sdk/commit/0185e06050c1910ca84dbc8e2932e4ce8809c7ba)), closes [#10](https://github.com/yotoplay/yoto-sdk/issues/10)
+
 ## [1.2.1](https://github.com/yotoplay/yoto-sdk/compare/v1.2.0...v1.2.1) (2026-03-10)
 
 
