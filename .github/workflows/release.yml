@@ -58,4 +58,10 @@ jobs:
         run: pnpm semantic-release
 
       - name: Publish to npm
-        run: npm publish --provenance --access public
+        run: |
+          CURRENT_VERSION=$(node -p "require('./package.json').version")
+          if npm view "@yotoplay/yoto-sdk@${CURRENT_VERSION}" version 2>/dev/null | grep -q "${CURRENT_VERSION}"; then
+            echo "Version ${CURRENT_VERSION} already published, skipping"
+          else
+            npm publish --provenance --access public
+          fi
