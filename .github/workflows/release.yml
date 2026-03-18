@@ -33,6 +33,9 @@ jobs:
           node-version: '20'
           registry-url: 'https://registry.npmjs.org'
 
+      - name: Upgrade npm
+        run: npm install -g npm@latest
+
       - name: Setup NPM
         run: |
           pnpm config set access public
@@ -49,28 +52,10 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Get npm OIDC token
-        run: |
-          OIDC_RESPONSE=$(curl -s -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=npm")
-          echo "GitHub OIDC response keys: $(echo "$OIDC_RESPONSE" | jq 'keys')"
-          OIDC_TOKEN=$(echo "$OIDC_RESPONSE" | jq -r '.value')
-
-          NPM_RESPONSE=$(curl -s -X POST "https://registry.npmjs.org/-/npm/v1/login/oidc" \
-            -H "Content-Type: application/json" \
-            -d "{\"oidcToken\": \"$OIDC_TOKEN\"}")
-          echo "npm OIDC response keys: $(echo "$NPM_RESPONSE" | jq 'keys')"
-          NPM_TOKEN=$(echo "$NPM_RESPONSE" | jq -r '.token')
-
-          if [ "$NPM_TOKEN" = "null" ] || [ -z "$NPM_TOKEN" ]; then
-            echo "::error::Failed to obtain npm OIDC token. Response: $(echo "$NPM_RESPONSE" | jq 'del(.token)')"
-            exit 1
-          fi
-
-          echo "::add-mask::$NPM_TOKEN"
-          echo "NODE_AUTH_TOKEN=$NPM_TOKEN" >> $GITHUB_ENV
-
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: pnpm semantic-release
+
+      - name: Publish to npm
+        run: npm publish --provenance --access public
